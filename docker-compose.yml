@@ -1,0 +1,30 @@
+services:
+  eatom:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eatom-app
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: /app/db/eatom.db
+      NUXT_PUBLIC_APP_URL: http://localhost:3001
+      BETTER_AUTH_URL: http://localhost:3001
+      BETTER_AUTH_SECRET: c580930b4d34fd1432f8468c56b7bb4027527cb32739fbfca8ba7bd66e37b482
+      PORT: "3000"
+      HOST: "0.0.0.0"
+    volumes:
+      # Persist SQLite database across container restarts
+      - eatom_db:/app/db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  eatom_db:
+    driver: local

@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* Force light mode — white backgrounds, dark readable text */
+:root {
+  --ui-bg: #fff;
+  --ui-bg-elevated: #f8fafc;
+  --ui-text: var(--ui-color-neutral-900);
+  --ui-text-highlighted: #000;
+  --ui-text-toned: var(--ui-color-neutral-700);
+  --ui-text-muted: var(--ui-color-neutral-600);
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  color-scheme: light;
+}
+
+/* White background for form input components */
+input.bg-default,
+textarea.bg-default,
+select.bg-default,
+[role="combobox"].bg-default,
+[role="listbox"].bg-default {
+  background-color: white !important;
+}
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+}

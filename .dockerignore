@@ -1,0 +1,10 @@
+node_modules
+.nuxt
+.output
+.git
+*.db
+db/*.db
+*.log
+.env*
+README.md
+SKOP_eATOM.md
