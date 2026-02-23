@@ -41,8 +41,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL ?? './db/eatom.db',
     public: {
-      appUrl: process.env.NUXT_PUBLIC_APP_URL ?? 'http://localhost:3001',
-      gatePin: process.env.NUXT_PUBLIC_GATE_PIN ?? ''
+      appUrl: process.env.NUXT_PUBLIC_APP_URL ?? 'http://localhost:3001'
     }
   },
 
