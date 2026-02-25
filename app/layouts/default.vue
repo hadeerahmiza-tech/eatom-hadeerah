@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mockLogout } from '~/composables/useAuth'
-const { user, role, isInternal } = useAuthUser()
+const { user, role, hasRole, isInternal } = useAuthUser()
 const route = useRoute()
 const expandedModule = ref<string | null>(null)
 
@@ -31,6 +31,25 @@ function isModuleActive(item: NavItem) {
 const navItems = computed<NavItem[]>(() => [
   // Dashboard
   { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/dashboard' },
+  // Tugasan Saya
+  {
+    label: 'Tugasan Saya',
+    icon: 'i-lucide-clipboard-list',
+    children: [
+      { label: 'Pesanan Saya', to: '/tugasan-saya/pesanan-saya' },
+      { label: 'Tukar Kata Laluan', to: '/tugasan-saya/tukar-kata-laluan' },
+      { label: 'Terima / Hantar Aduan', to: '/tugasan-saya/terima-hantar-aduan' },
+    ],
+  },
+  // Pentadbir Sistem — admin sahaja
+  ...(hasRole('ADMIN') ? [{
+    label: 'Pentadbir Sistem',
+    icon: 'i-lucide-settings-2',
+    children: [
+      { label: 'Parameter Sistem', to: '/pentadbir-sistem/parameter-sistem' },
+      { label: 'Pengurusan Pengguna', to: '/pentadbir-sistem/pengurusan-pengguna' },
+    ],
+  }] : []),
   // Modul 1: Perlesenan & Kawalselia
   {
     label: 'Perlesenan & Kawalselia',
@@ -116,6 +135,10 @@ const navItems = computed<NavItem[]>(() => [
       { label: 'Outreach & Promosi', to: '/khidmat-pengurusan/outreach' },
     ]
   },
+  // Manual Pengguna
+  { label: 'Manual Pengguna', icon: 'i-lucide-book-open', to: '/manual-pengguna' },
+  // Audit Trail — staf dalaman sahaja
+  ...(isInternal.value ? [{ label: 'Audit Trail', icon: 'i-lucide-scroll-text', to: '/audit-trail' }] : []),
 ])
 
 // Auto-expand active module
